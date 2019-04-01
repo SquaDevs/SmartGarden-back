@@ -11,6 +11,7 @@ class AppController {
     this.middlewares();
     this.routes();
     this.database();
+    this.exception();
   }
   database() {
     mongoose.connect(uri, { useCreateIndex: true, useNewUrlParser: true });
@@ -25,9 +26,9 @@ class AppController {
 
   exception() {
     this.express.use(async (err, req, res, next) => {
-      if (err instanceof validate.ValidationError) {
-        return res.status(err.status).json(err);
-      }
+      // if (err instanceof validate.ValidationError) {
+      //   return res.status(err.status).json(err);
+      // }
 
       return res
         .status(err.status || 500)

@@ -7,10 +7,12 @@
     "bcryptjs": "^2.4.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
+    "express-async-handler": "^1.1.4",
     "express-validation": "^1.0.2",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.20",
+    "mongoose-paginate": "^5.0.3",
     "require-dir": "^1.2.0"
   },
   "devDependencies": {
