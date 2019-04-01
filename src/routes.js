@@ -6,6 +6,7 @@ const routes = require("express").Router();
 const UserController = require("./app/controllers/UserController");
 const SessionController = require("./app/controllers/SessionController");
 const PlantsController = require("./app/controllers/PlantsController");
+const PlantDataController = require("./app/controllers/PlantDataController");
 
 /**
  * Middlewares
@@ -46,5 +47,20 @@ routes
   .get(handler(PlantsController.show))
   .put(handler(PlantsController.update))
   .delete(handler(PlantsController.delete));
+
+/**
+ * Plant Data
+ */
+
+//Create Plant data
+routes.route("/plant/data/:token").post(handler(PlantDataController.create));
+//view all plant data
+routes.route("/plant/:idPlant/data").get(handler(PlantDataController.index));
+//view a specific plant data
+routes.route("/plant/data/:idData").get(handler(PlantDataController.show));
+//view all plant data
+routes.route("/plants/data").get(handler(PlantDataController.index));
+// .put(handler(PlantDataController.update))->Cannot Update Plant Data
+// .delete(handler(PlantDataController.delete))->Cannot delete Plant Data
 
 module.exports = routes;
