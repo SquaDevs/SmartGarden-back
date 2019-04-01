@@ -25,7 +25,7 @@ class UserController {
     const { name, username } = req.body;
 
     if (!(name || username)) {
-      return res.status(500).json({ error: "No data to be updated" });
+      return res.status(406).json({ error: "No data to be updated" });
     }
 
     const user = await User.findById(req.userId);
