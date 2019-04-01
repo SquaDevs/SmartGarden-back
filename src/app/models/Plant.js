@@ -37,7 +37,8 @@ const Plant = mongoose.Schema({
 Plant.pre("save", async function(next) {
   if (!this.isModified("token")) {
     if (this.token === undefined) {
-      this.token = await bcryptjs.hash(this.owner + Date.now, 8);
+      let hash = await bcryptjs.hash(this.owner + Date.now, 8);
+      this.token = await Buffer.from(hash, "utf8").toString("hex");
     } else {
       return next();
     }
