@@ -39,6 +39,12 @@ routes
 routes
   .route("/plant")
   .post(handler(PlantsController.create))
-  .get(handler(PlantsController.show));
+  .get(handler(PlantsController.index));
+
+routes
+  .route("/plant/:id")
+  .get(handler(PlantsController.show))
+  .put(handler(PlantsController.update))
+  .delete(handler(PlantsController.delete));
 
 module.exports = routes;
