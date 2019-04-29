@@ -14,10 +14,12 @@ const PlantDataController = require("./app/controllers/PlantDataController");
 
 const auth = require("./app/middleware/auth");
 
+
 /**
  * Error Handler
  */
 const handler = require("express-async-handler");
+routes.post("/", handler((req,res)=>res.json({status:'OK'})));
 
 routes.post("/user", handler(UserController.create));
 routes.post("/auth", handler(SessionController.create));
