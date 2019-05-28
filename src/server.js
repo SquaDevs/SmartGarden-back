@@ -3,8 +3,8 @@ const http = require("http");
 const { readFileSync } = require("fs");
 const app = require("./app");
 
-var key = readFileSync(__dirname + "/../../client-key.key");
-var cert = readFileSync(__dirname + "/../../cclient-cert.crt");
+var key = readFileSync(__dirname + "/../../client-key.pem");
+var cert = readFileSync(__dirname + "/../../cclient-cert.pem");
 var options = {
   key: key,
   cert: cert
