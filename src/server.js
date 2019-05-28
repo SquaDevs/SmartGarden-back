@@ -4,7 +4,7 @@ const { readFileSync } = require("fs");
 const app = require("./app");
 
 var key = readFileSync(__dirname + "/../../client-key.pem");
-var cert = readFileSync(__dirname + "/../../cclient-cert.pem");
+var cert = readFileSync(__dirname + "/../../client-cert.pem");
 var options = {
   key: key,
   cert: cert
