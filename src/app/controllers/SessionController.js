@@ -12,7 +12,12 @@ class SessionController {
         return res.status(400).json({ error: "Invalid password" });
       }
 
-      return res.json({ token: User.generateToken(user) });
+      return res.json({
+        username: user.username,
+        email: user.email,
+        name: user.name,
+        token: User.generateToken(user)
+      });
     } catch (error) {
       return res.status(500).json({ error: "Something  went wrong" });
     }
