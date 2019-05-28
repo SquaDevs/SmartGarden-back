@@ -10,9 +10,9 @@ var options = {
   cert: cert
 };
 
-let { PORT, HTTPS, NODE_ENV } = process.env;
+let { PORT, HTTPS } = process.env;
 
-NODE_ENV &&
+HTTPS &&
   https.createServer(options, app).listen(HTTPS || 3000, () => {
     console.log(`https Server is up  ${HTTPS || 3000}`);
   });
