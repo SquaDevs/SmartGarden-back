@@ -17,13 +17,16 @@ const Plant = mongoose.Schema({
   location: {
     type: {
       type: String, // Don't do `{ location: { type: String } }`
-      enum: ["Point"], // 'location.type' must be 'Point'
-      required: true
+      enum: ["Point"] // 'location.type' must be 'Point'
+      // required: true
     },
     coordinates: {
-      type: [Number],
-      required: true
+      type: [Number]
+      // required: true
     }
+  },
+  type: {
+    type: String
   },
   token: {
     type: String
