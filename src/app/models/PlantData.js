@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const mongoosePaginate = require("mongoose-paginate");
+const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate')
 
 const PlantData = mongoose.Schema({
   plant: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Plant"
+    ref: 'Plant'
   },
   temperature: {
     type: Number
@@ -19,8 +19,8 @@ const PlantData = mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+})
 
-PlantData.plugin(mongoosePaginate);
+PlantData.plugin(mongoosePaginate)
 
-module.exports = mongoose.model("PlantData", PlantData);
+module.exports = mongoose.model('PlantData', PlantData)

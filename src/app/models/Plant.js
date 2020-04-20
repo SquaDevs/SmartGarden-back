@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const mongoosePaginate = require("mongoose-paginate");
-const bcryptjs = require("bcryptjs");
+const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate')
+const bcryptjs = require('bcryptjs')
 const Plant = mongoose.Schema({
   title: {
     type: String,
@@ -12,12 +12,12 @@ const Plant = mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: 'User'
   },
   location: {
     type: {
       type: String, // Don't do `{ location: { type: String } }`
-      enum: ["Point"] // 'location.type' must be 'Point'
+      enum: ['Point'] // 'location.type' must be 'Point'
       // required: true
     },
     coordinates: {
@@ -35,19 +35,19 @@ const Plant = mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+})
 
-Plant.pre("save", async function(next) {
-  if (!this.isModified("token")) {
+Plant.pre('save', async function (next) {
+  if (!this.isModified('token')) {
     if (this.token === undefined) {
-      let hash = await bcryptjs.hash(this.owner + Date.now, 8);
-      this.token = await Buffer.from(hash, "utf8").toString("hex");
+      const hash = await bcryptjs.hash(this.owner + Date.now, 8)
+      this.token = await Buffer.from(hash, 'utf8').toString('hex')
     } else {
-      return next();
+      return next()
     }
   }
-});
+})
 
-Plant.plugin(mongoosePaginate);
+Plant.plugin(mongoosePaginate)
 
-module.exports = mongoose.model("Plant", Plant);
+module.exports = mongoose.model('Plant', Plant)
