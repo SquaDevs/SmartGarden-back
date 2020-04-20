@@ -4,11 +4,13 @@ const PlantData = require("./../models/PlantData");
 class PlantDataController {
   async create(req, res) {
     const { token } = req.params;
+
     let plant = await Plant.findOne({ token });
 
     if (!plant) {
       return res.status(401).send();
     }
+    if (!req.body) throw new Error("You Canno't insert a plant data without   any data")
 
     let plantData = await PlantData.create({ ...req.body, plant: plant._id });
 
@@ -28,6 +30,7 @@ class PlantDataController {
   }
   async index(req, res) {
     const filters = {};
+
     req.params.idPlant !== undefined
       ? (filters.plant = req.params.idPlant)
       : "";
