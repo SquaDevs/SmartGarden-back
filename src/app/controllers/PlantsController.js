@@ -33,12 +33,14 @@ class PlantsController {
   }
   async index(req, res) {
     const filters = {};
+
+    filters.owner = req.userId
     if (req.query.title) {
       filters.title = new RegExp(req.query.title, "i");
     }
 
     const plants = await Plant.paginate(filters, {
-      limit: 20,
+      limit: 5,
       page: req.query.page || 1,
       sort: "createdAt",
       populate: ["owner.name"]
