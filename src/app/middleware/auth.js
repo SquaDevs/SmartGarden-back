@@ -1,21 +1,18 @@
-const jwt = require("jsonwebtoken");
-const { secret } = require("../../config/auth");
-const { promisify } = require("util");
-
+const User = require('./../models/User')
 module.exports = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers.authorization
 
   // checks if the token is present on the header of the requisiton
   if (!authHeader) {
-    return res.status(401).json({ error: "Token not provider" });
+    return res.status(401).json({ error: 'Token not provider' })
   }
   // checks if the token is valid on the header of the requisiton
-  const [, token] = authHeader.split(" ");
+  const [, token] = authHeader.split(' ')
   try {
-    const decoded = await promisify(jwt.verify)(token, secret);
-    req.userId = decoded.id;
-    return next();
+    const decoded = await User.checksToken(token)
+    req.userId = decoded.id
+    return next()
   } catch (error) {
-    return res.status(401).json({ error: "Token invalid" });
+    return res.status(401).json({ error: 'Token invalid' })
   }
-};
+}

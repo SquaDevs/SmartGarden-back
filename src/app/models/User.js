@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
-const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const authConfig = require("../../config/auth");
+const mongoose = require('mongoose')
+const bcryptjs = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const authConfig = require('../../config/auth')
+const { promisify } = require('util')
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -15,8 +16,7 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
-    lowercase: true
+    unique: true
   },
   password: {
     type: String,
@@ -26,27 +26,30 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+})
 
-UserSchema.pre("save", async function(next) {
-  if (!this.isModified("password")) {
-    return next();
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next()
   }
-  this.password = await bcryptjs.hash(this.password, 8);
-});
+  this.password = await bcryptjs.hash(this.password, 8)
+})
 
 UserSchema.methods = {
   compareHash(password) {
-    return bcryptjs.compare(password, this.password);
+    return bcryptjs.compare(password, this.password)
   }
-};
+}
 
 UserSchema.statics = {
   generateToken({ id }) {
     return jwt.sign({ id }, authConfig.secret, {
       expiresIn: authConfig.ttl
-    });
+    })
+  },
+  checksToken(token) {
+    return promisify(jwt.verify)(token, authConfig.secret)
   }
-};
+}
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema)
