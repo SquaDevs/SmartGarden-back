@@ -7,6 +7,8 @@ const UserController = require('./app/controllers/UserController')
 const SessionController = require('./app/controllers/SessionController')
 const PlantsController = require('./app/controllers/PlantsController')
 const PlantDataController = require('./app/controllers/PlantDataController')
+const PlantInputsController = require('./app/controllers/PlantInputsController')
+const PlantPhotoController = require('./app/controllers/PlantPhotoController')
 const InsightsController = require('./app/controllers/InsightsController')
 
 /**
@@ -14,6 +16,8 @@ const InsightsController = require('./app/controllers/InsightsController')
  */
 
 const auth = require('./app/middleware/auth')
+const multer = require('multer')
+const multerConfig = require('./config/multer')
 // const brute = require('express-brute');
 // const bruteRedis = require('express-brute-redis');
 
@@ -56,6 +60,39 @@ routes
 routes
   .route('/insights/plant')
   .post(handler(InsightsController.tgetPlanInsights))
+
+/*
+  * Plant Inputss
+  *
+  */
+
+routes
+  .route('/inputs')
+  .post(handler(PlantInputsController.create))
+  .get(handler(PlantInputsController.index))
+
+routes
+  .route('/inputs/:id')
+  .get(handler(PlantInputsController.show))
+  .put(handler(PlantInputsController.update))
+  .delete(handler(PlantInputsController.delete))
+
+/**
+ * Plant Photo
+ *
+ *
+ */
+
+routes
+  .route('/plant/photo')
+  .post(multer(multerConfig).single('file'), handler(PlantPhotoController.create))
+  .get(handler(PlantPhotoController.index))
+
+routes
+  .route('/plant/photo/:id')
+  .get(handler(PlantPhotoController.show))
+  // .put(handler(PlantPhotoController.update))
+  .delete(handler(PlantPhotoController.delete))
 
 /**
  * Plant Data
